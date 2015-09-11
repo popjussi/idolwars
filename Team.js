@@ -52,7 +52,7 @@ export default class Team extends IW {
       let sDefs = defender.survivals();
 
       if (IW.battleLog) {
-        console.log("Turn:",ri+1);
+        console.log("===Turn:",ri+1,"=============================================");
         if (sAggs.length) {
           console.log("    Aggressors");
           for(let avt of sAggs) {
@@ -66,6 +66,7 @@ export default class Team extends IW {
             console.log("      ",avt.desc());
           }
         }
+        console.log("--------------------------------------------------------");
       }
 
       if (sDefs.length == 0) return this;
@@ -77,20 +78,30 @@ export default class Team extends IW {
 
   receive(act) {
 
-    let oldLife = act.target.life;
+    let oldALife = act.avatar.life;
+    let oldTLife = act.target.life;
+
     let powerFactor = 0.175;
     let power = act.power;
     act.target.life -= power;
 
-    let bar = Math.ceil(10*act.target.life/act.target.maxLife);
-    if (act.target.life < 0) bar = "[..FALLEN..]";
-    else bar = "["+".".repeat(10-bar)+"#".repeat(bar)+"]";
+    let barfunc = function (max,before,after) {
+      if (after < 0) after = 0;
+      let bsize = 10;
+      let ra = Math.ceil(bsize*after/max);
+      let rb = Math.ceil(bsize*before/max);
+      return "◌".repeat(bsize-rb)+"×".repeat(rb-ra)+"◉".repeat(ra);
+    }
+
 
     if (IW.battleLog) {
-      let oft = (this.role == "defender" ? "" : "\t");
+
+      let oft = (this.role == "defender" ? "" : "    ");
+
       console.log(oft,act.avatar.desc(), "attacks");
-      console.log(oft,"|  ", act.target.desc());
-      console.log(oft,"|___"+bar,oldLife.toFixed(2),"-",power.toFixed(2),"=",act.target.life.toFixed(2));
+      console.log(oft,"├"+barfunc(act.avatar.maxLife,oldALife,act.avatar.life)+"┘",oldALife.toFixed(2),"-",power.toFixed(2),"=",act.target.life.toFixed(2));
+      console.log(oft,"│  ", act.target.desc());
+      console.log(oft,"└────"+barfunc(act.target.maxLife,oldTLife,act.target.life)+"┘",oldTLife.toFixed(2),"-",power.toFixed(2),"=",act.target.life.toFixed(2));
     }
   }
 }

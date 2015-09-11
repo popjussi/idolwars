@@ -31,9 +31,9 @@ export default class Action {
   }
 
   get power() {
-    let powerFactor = 0.175;
+    let powerFactor = 0.25;
 
-    this.computedPower = this.computedPower || this.avatar.power * (1.0 - powerFactor) + this.avatar.power * powerFactor * Math.random();
+    this.computedPower = this.computedPower || (this.avatar.power * (1.0 + ( Math.random()* 2 * powerFactor - powerFactor)));
 
     return this.computedPower;
   }

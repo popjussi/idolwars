@@ -47,6 +47,7 @@ export class Avatar {
   action() {
     let act = new Action(this);
     act.setNearestTarget();
+//    act.setRandomTarget();
     act.forward();
   }
 

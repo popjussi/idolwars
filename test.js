@@ -8,8 +8,13 @@ import Position from './Position.js';
 import Player from './Player.js';
 import Team from './Team.js';
 
-IW.battleLog = true;
-IW.battleRound = 1;
+if (1) {
+  IW.battleLog = true;
+  IW.battleRound = 1;
+} else {
+  IW.battleLog = false;
+  IW.battleRound = 5000;
+}
 
 let test_idols = [
   {guild: "AOA",       name: "Choaya",         birth: "1990-03-06", skills:{health:10, power:10, speed:10}},
@@ -42,7 +47,7 @@ for (let record of test_idols) {
 
   let testScore = 1000;
   if (record.guild == "AOA") testScore /= 8.0;
-  else testScore /= 4.9;
+  else testScore /= 5.0;
 
   if (record.guild == "AOA")
     cards.push(new Card(idol, new Materials(testScore,testScore,testScore,testScore)));
