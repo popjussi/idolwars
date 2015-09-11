@@ -1,0 +1,8 @@
+{
+  "name": "idolwars",
+  "version": "0.0.1",
+  "dependencies": {
+    "minimist": "^1.2.0",
+    "traceur": "0.0.91"
+  }
+}
