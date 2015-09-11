@@ -25,7 +25,7 @@ export default class Team extends IW {
     defender.opponent = this;
     let avatars = this.avatars.concat(defender.avatars);
 
-    let performRound = function (avatars) {
+    function performRound(avatars) {
 
       if (avatars.length > 0)
         avatars = avatars.filter(function (avt) {
